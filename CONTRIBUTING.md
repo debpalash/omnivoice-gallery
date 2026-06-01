@@ -82,5 +82,22 @@ Add an object to the `items` array in `manifest.json`:
 
 ## Validation
 
-PRs are checked against `schema/manifest.schema.json`. Keep `manifest.json`
-valid JSON and bump `updated_at`.
+Every PR runs **CI** (`.github/workflows/validate-manifest.yml`) that checks
+`manifest.json` against `schema/manifest.schema.json` **and** the same semantic
+rules the OmniVoice app applies at runtime — so "green CI" means "loads and
+renders in the app". The gate verifies:
+
+- every preset `instruct` uses only valid taxonomy tokens, at most one per
+  category, and never mixes an English accent with a Chinese dialect;
+- each `use_case` is one of the seven the app knows;
+- recorded-voice `audio.url` points at an allow-listed host (jsDelivr / GitHub)
+  over https and carries a 64-char `sha256` for the integrity check;
+- item ids are unique and packs only reference real items.
+
+Run it yourself before opening the PR:
+
+```bash
+python scripts/validate_manifest.py        # pip install jsonschema for the schema pass
+```
+
+Keep `manifest.json` valid JSON and bump `updated_at`.
