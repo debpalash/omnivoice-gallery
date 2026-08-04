@@ -100,6 +100,11 @@ Adding the clip in a comment is always fine — there is no need to open a new
 issue. A bot checks each `[voice]` issue for an attachment and labels it
 `needs-audio` until one arrives, so nothing gets silently lost.
 
+Note for maintainers: a label an issue form declares but the repository does not
+have is silently dropped by GitHub, with no warning anywhere — which is why the
+submission automation triggers on the `[voice]` title prefix as well as the
+label, and why `tests/test_issue_forms.py` pins the declared set.
+
 ## Validation
 
 Every PR runs **CI** (`.github/workflows/validate-manifest.yml`) that checks

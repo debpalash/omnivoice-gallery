@@ -22,8 +22,17 @@ jobs:
   check:
     # Only voice submissions, and never the bot's own comment (which would
     # otherwise retrigger this on every run).
+    #
+    # Title prefix OR label, not label alone. GitHub silently DROPS any label an
+    # issue form declares that does not exist in the repo — which is exactly
+    # what happened here: the form has asked for `submission`/`voice` since it
+    # was written, neither label existed, and both real submissions arrived
+    # unlabelled. Gating on the label alone would have meant this workflow never
+    # ran, with nothing to say why. The `[voice] ` prefix comes from the form's
+    # `title:` and cannot be dropped that way, so it is the reliable half.
     if: >-
-      contains(github.event.issue.labels.*.name, 'voice') &&
+      (startsWith(github.event.issue.title, '[voice]') ||
+       contains(github.event.issue.labels.*.name, 'voice')) &&
       github.event.sender.type != 'Bot'
     runs-on: ubuntu-latest
     steps:
