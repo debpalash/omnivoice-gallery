@@ -1,0 +1,93 @@
+name: Check voice submission
+
+# The form asks contributors to attach a clip and to tick a box saying they
+# did. The gallery's first two submissions ticked the box and carried no audio
+# — one upload failed and left GitHub's "Failed to upload" marker behind, the
+# other never happened. A self-certification cannot verify itself, so this
+# looks, and tells the submitter while they are still around to fix it.
+#
+# It comments once and labels; it never closes anything. A submission that is
+# only missing a file is not a bad submission.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+  issue_comment:
+    types: [created, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    # Only voice submissions, and never the bot's own comment (which would
+    # otherwise retrigger this on every run).
+    if: >-
+      contains(github.event.issue.labels.*.name, 'voice') &&
+      github.event.sender.type != 'Bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Look for the audio clip
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          gh issue view "$ISSUE" --repo "$REPO" \
+            --json body,comments -q '[.body] + [.comments[].body]' > /tmp/texts.json
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os, sys
+          sys.path.insert(0, "scripts")
+          from check_voice_submission import build_comment, inspect
+
+          texts = json.load(open("/tmp/texts.json"))
+          verdict = inspect(texts)
+          comment = build_comment(verdict)
+          print(f"has_audio={'true' if verdict.has_audio else 'false'}")
+          # Heredoc-delimited so a multi-line comment survives GITHUB_OUTPUT.
+          print("comment<<COMMENT_EOF")
+          print(comment)
+          print("COMMENT_EOF")
+          PY
+
+      - name: Ask for the clip (once)
+        if: steps.check.outputs.has_audio == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+          BODY: ${{ steps.check.outputs.comment }}
+        run: |
+          set -euo pipefail
+          # Post at most one reminder per issue: this workflow also runs on
+          # every new comment, and a bot that repeats itself on each reply is
+          # worse than one that stays quiet.
+          already=$(gh issue view "$ISSUE" --repo "$REPO" --json comments \
+            -q '[.comments[] | select(.author.login == "github-actions") |
+                 select(.body | contains("the audio clip itself"))] | length')
+          if [ "$already" = "0" ]; then
+            printf '%s\n' "$BODY" | gh issue comment "$ISSUE" --repo "$REPO" --body-file -
+          fi
+          gh issue edit "$ISSUE" --repo "$REPO" --add-label "needs-audio"
+
+      - name: Clear the label once the clip arrives
+        if: steps.check.outputs.has_audio == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          # --remove-label fails when the label isn't set, which is the normal
+          # case for a submission that was complete from the start.
+          gh issue edit "$ISSUE" --repo "$REPO" --remove-label "needs-audio" || true

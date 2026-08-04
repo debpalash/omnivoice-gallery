@@ -7,14 +7,16 @@ on:
     paths:
       - "manifest.json"
       - "schema/**"
-      - "scripts/validate_manifest.py"
+      - "scripts/**"
+      - "tests/**"
       - ".github/workflows/validate-manifest.yml"
   push:
     branches: [main]
     paths:
       - "manifest.json"
       - "schema/**"
-      - "scripts/validate_manifest.py"
+      - "scripts/**"
+      - "tests/**"
 
 permissions:
   contents: read
@@ -28,6 +30,29 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install validator dependencies
-        run: python -m pip install --upgrade jsonschema
+        run: python -m pip install --upgrade jsonschema pytest pyyaml
       - name: Validate manifest.json
         run: python scripts/validate_manifest.py
+      # The submission-triage logic is pure text-in/verdict-out precisely so it
+      # can be tested here rather than only in production on a contributor's
+      # issue.
+      - name: Run script tests
+        run: python -m pytest tests/ -q
+      # An issue form that does not parse silently reverts to a blank issue
+      # body, which is how a malformed submission gets in without anyone
+      # noticing the template broke.
+      - name: Issue forms and workflows parse
+        run: |
+          python - <<'PY'
+          import glob, sys, yaml
+          bad = []
+          for path in sorted(glob.glob(".github/ISSUE_TEMPLATE/*.yml")
+                             + glob.glob(".github/workflows/*.yml")):
+              try:
+                  yaml.safe_load(open(path, encoding="utf-8"))
+              except Exception as e:
+                  bad.append(f"{path}: {e}")
+          if bad:
+              sys.exit("unparseable YAML:\n" + "\n".join(bad))
+          print("all issue forms and workflows parse")
+          PY
