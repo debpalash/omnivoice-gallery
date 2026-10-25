@@ -1,0 +1,167 @@
+name: Curate approved voice
+
+# A maintainer listens to a [voice] submission, checks the consent rule, and
+# adds the `approved` label. That label is the human decision; this does the
+# mechanical rest (scripts/curate_submission.py): fetch the clip, convert, trim
+# and normalise it, check the transcript, upload the WAV to the voices-v1
+# prerelease, and open a PR that closes the issue.
+#
+# Everything from the issue is untrusted text. It only ever travels through
+# JSON files read by Python — never through ${{ }} into a shell line.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write       # push the bot branch, upload the release asset
+  issues: write         # report back on the submission
+  pull-requests: write  # open the curation PR
+  actions: write        # dispatch validation on the bot branch (see below)
+
+concurrency:
+  # Two curations at once would race on manifest.json and on the release.
+  group: curate-voice
+  cancel-in-progress: false
+
+jobs:
+  curate:
+    if: >-
+      github.event.label.name == 'approved' &&
+      startsWith(github.event.issue.title, '[voice]')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      ISSUE: ${{ github.event.issue.number }}
+      RELEASE: voices-v1
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg and the transcript checker
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          python -m pip install -q faster-whisper
+
+      # Comments count only from the submitter and the maintainers, so a
+      # stranger's comment cannot swap in a different clip after approval.
+      - name: Read the submission
+        run: |
+          gh issue view "$ISSUE" --repo "$REPO" --json number,author,body,comments --jq '
+            .author.login as $a |
+            {number, author: $a, body,
+             comments: [.comments[]
+               | select(.author.login == $a or (.authorAssociation | IN("OWNER","MEMBER","COLLABORATOR")))
+               | .body]}' > issue.json
+          python scripts/curate_submission.py plan issue.json plan.json
+
+      - name: Refuse with reasons
+        id: refused
+        run: |
+          if python -c "import json,sys; sys.exit(0 if 'error' in json.load(open('plan.json')) else 1)"; then
+            python - <<'PY'
+          import json
+          err = json.load(open("plan.json"))["error"]
+          open("comment.md", "w", encoding="utf-8").write(
+              "The curation bot could not add this voice yet:\n\n" + err +
+              "\n\nOnce that is fixed, remove and re-add the `approved` label to try again.\n")
+          PY
+            gh issue comment "$ISSUE" --repo "$REPO" --body-file comment.md
+            gh issue edit "$ISSUE" --repo "$REPO" --remove-label approved
+            echo "stop=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Fetch, convert and add to the manifest
+        if: steps.refused.outputs.stop != 'true'
+        run: |
+          mkdir -p incoming
+          src=$(python scripts/curate_submission.py fetch plan.json incoming | tail -1)
+          SRC="$src" python - <<'PY'
+          import json, os, sys
+          sys.path.insert(0, "scripts")
+          import add_voice
+          p = json.load(open("plan.json", encoding="utf-8"))
+          args = [os.environ["SRC"], "--id", p["id"], "--name", p["name"],
+                  "--use-case", p["use_case"], "--language", p["language"],
+                  "--ref-text", p["ref_text"], "--author", p["author"],
+                  "--license", p["license"],
+                  "--submission", f"https://github.com/{os.environ['REPO']}/issues/{p['issue']}"]
+          if p.get("gender"):
+              args += ["--gender", p["gender"]]
+          sys.exit(add_voice.main(args))
+          PY
+          python -m pip install -q jsonschema
+          python scripts/validate_manifest.py
+          python scripts/curate_submission.py score plan.json "build/$(python -c "import json;print(json.load(open('plan.json'))['id'])").wav" score.json
+
+      - name: Upload the clip
+        if: steps.refused.outputs.stop != 'true'
+        run: |
+          id=$(python -c "import json;print(json.load(open('plan.json'))['id'])")
+          # The release is a PRERELEASE on purpose: the app's signed preview
+          # gallery downloads from releases/latest, which this must never be.
+          gh release view "$RELEASE" --repo "$REPO" >/dev/null 2>&1 || \
+            gh release create "$RELEASE" --repo "$REPO" --prerelease --latest=false \
+              --title "Recorded voices v1" --notes "Reference clips for the recorded voices in manifest.json."
+          # Never replace an asset in place: the app pins its sha256.
+          if gh release view "$RELEASE" --repo "$REPO" --json assets --jq '.assets[].name' | grep -qx "$id.wav"; then
+            echo "::error::$id.wav already exists on $RELEASE"; exit 1
+          fi
+          gh release upload "$RELEASE" "build/$id.wav" --repo "$REPO"
+
+      - name: Verify the published clip like CI does
+        if: steps.refused.outputs.stop != 'true'
+        run: python scripts/verify_voice_audio.py
+
+      - name: Open the PR
+        if: steps.refused.outputs.stop != 'true'
+        run: |
+          python - <<'PY'
+          import json
+          p = json.load(open("plan.json", encoding="utf-8"))
+          s = json.load(open("score.json", encoding="utf-8"))
+          item = next(i for i in json.load(open("manifest.json", encoding="utf-8"))["items"] if i["id"] == p["id"])
+          ok = s["ok"]
+          quote = lambda t: "\n".join("> " + line for line in t.splitlines() or [""])
+          body = f"""Curated from #{p['issue']} by @{p['author']} — **{p['name']}** ({p['language']}, {p['use_case']}, {p['license']}).
+
+          | | |
+          | --- | --- |
+          | id | `{p['id']}` |
+          | length | {item['audio']['duration']}s (trimmed, loudness-normalised) |
+          | transcript match | {'✅' if ok else '⚠️'} {s['score']:.0%} |
+
+          **Submitted text**
+          {quote(p['ref_text'])}
+
+          **What the clip says** (Whisper small)
+          {quote(s['heard'])}
+
+          {'' if ok else '**The transcript does not match the submitted text.** Fix `ref_text` on this branch (or ask the submitter) before merging — cloning conditions on it.'}
+
+          Listen before merging: the clip is already on the `voices-v1` prerelease; closing this PR without merging deletes it.
+
+          Closes #{p['issue']}
+          """
+          open("pr.md", "w", encoding="utf-8").write(body)
+          open("title.txt", "w", encoding="utf-8").write(f"feat(voices): add {p['name']} ({p['language']}) from #{p['issue']}")
+          PY
+          id=$(python -c "import json;print(json.load(open('plan.json'))['id'])")
+          branch="bot/voice-$id"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add manifest.json
+          git commit -q -F title.txt
+          git push -q origin "$branch"
+          url=$(gh pr create --repo "$REPO" --head "$branch" --title "$(cat title.txt)" --body-file pr.md)
+          gh issue comment "$ISSUE" --repo "$REPO" --body "Curation PR ready for review: $url"
+          # PRs opened with GITHUB_TOKEN do not trigger pull_request workflows;
+          # workflow_dispatch is the documented exception, and its checks land
+          # on the branch head, so they show on the PR.
+          gh workflow run validate-manifest.yml --repo "$REPO" --ref "$branch"

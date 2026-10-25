@@ -5,6 +5,9 @@ a marketplace of ready-to-use **designed voices** and **community-contributed
 reference voices**, loaded by the app *after install* so the installer stays
 small and content can ship without an app release.
 
+**Browse it:** [debpalash.github.io/omnivoice-gallery](https://debpalash.github.io/omnivoice-gallery/)
+lists every voice, with the recorded ones playable in the browser.
+
 ## How the app loads this
 
 VoiceStudio fetches `manifest.json` at runtime over the **jsDelivr CDN**
@@ -28,7 +31,9 @@ manifest.json                 # the index — packs + items (presets & voices)
 schema/manifest.schema.json   # JSON Schema the app validates against
 scripts/validate_manifest.py  # CI gate: same rules the app applies at runtime
 scripts/verify_voice_audio.py # CI: downloads each clip, checks hash + WAV + length
-scripts/add_voice.py          # maintainers: clip → WAV → manifest entry
+scripts/add_voice.py          # maintainers: clip → trimmed, normalised WAV → manifest entry
+scripts/curate_submission.py  # the curation bot behind the `approved` label
+site/build.py                 # the public browse page (GitHub Pages)
 .github/ISSUE_TEMPLATE/       # one-click submission forms
 CONTRIBUTING.md               # how to add your voice
 ```
@@ -38,6 +43,10 @@ CONTRIBUTING.md               # how to add your voice
 - **VoiceStudio Starter** — 24 designed voices shipped by the VoiceStudio team.
 - **Community Voices** — recorded voices from the community, starting with two
   Brazilian Portuguese voices by [@iluucasz](https://github.com/iluucasz).
+- **World Voices** — designed voices for 12 languages the app has no built-in
+  presets for yet (Dutch, Turkish, Polish, Vietnamese, Indonesian, Swedish,
+  Greek, Ukrainian, Czech, Romanian, Danish, Finnish), each previewed in its own
+  language.
 
 ### Item types
 

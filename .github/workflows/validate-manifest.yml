@@ -75,3 +75,16 @@ jobs:
           python-version: "3.11"
       - name: Verify recorded-voice audio
         run: python scripts/verify_voice_audio.py
+      # VoiceStudio's signed preview gallery downloads from releases/latest of
+      # this repo. A voices-* release that is not a prerelease becomes
+      # "latest" and silently shadows it.
+      - name: Voice releases stay prereleases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bad=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --paginate \
+            --jq '.[] | select((.tag_name | startswith("voices-")) and (.prerelease | not)) | .tag_name')
+          if [ -n "$bad" ]; then
+            echo "::error::mark these as prereleases so they never become latest: $bad"; exit 1
+          fi
+          echo "voice releases are all prereleases"

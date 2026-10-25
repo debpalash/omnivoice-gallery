@@ -13,7 +13,8 @@ it in one step:
         --gender female --author iluucasz --license CC-BY-4.0 \\
         --ref-text "Olá! Hoje acordei animada, …"
 
-It writes ``build/<id>.wav`` (mono 16-bit PCM, source rate capped at 48 kHz),
+It writes ``build/<id>.wav`` (silence-trimmed, loudness-normalised, mono 16-bit
+PCM, source rate capped at 48 kHz),
 adds the item to ``manifest.json`` and the ``community-voices`` pack, bumps
 ``updated_at``, and prints the ``gh release upload`` command for the WAV.
 Requires ``ffmpeg`` on PATH. Run ``scripts/validate_manifest.py`` afterwards;
@@ -43,6 +44,29 @@ _COMMUNITY_PACK = {
 MIN_SECONDS = 3.0
 MAX_SECONDS = 15.0
 _MAX_RATE = 48_000
+# Leading/trailing silence makes a reference clip condition the clone on dead
+# air, and submissions arrive anywhere from whisper-quiet to clipping. Trim
+# both ends (keeping a short natural tail) and normalise to a common loudness
+# so every gallery voice previews and clones at the same level. -16 LUFS /
+# -1.5 dBTP is the usual target for speech.
+_TRIM = "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.15"
+_TRIM_BOTH = ",".join([_TRIM, "areverse", _TRIM, "areverse"])
+_LOUDNORM = "loudnorm=I=-16:TP=-1.5:LRA=11"
+
+
+def _loudnorm_filter(src: Path) -> str:
+    """Two-pass loudnorm: one-pass mode undershoots by 2+ LU on 3–15s clips."""
+    probe = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-nostats", "-i", str(src),
+         "-af", f"{_TRIM_BOTH},{_LOUDNORM}:print_format=json", "-f", "null", "-"],
+        check=True, capture_output=True, text=True,
+    ).stderr
+    m = json.loads(probe[probe.rindex("{"):probe.rindex("}") + 1])
+    return (
+        f"{_TRIM_BOTH},{_LOUDNORM}:measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+        f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+        f":offset={m['target_offset']}:linear=true"
+    )
 
 
 def convert_to_wav(src: Path, dst: Path) -> None:
@@ -56,6 +80,7 @@ def convert_to_wav(src: Path, dst: Path) -> None:
     dst.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         ["ffmpeg", "-v", "error", "-y", "-i", str(src), "-map_metadata", "-1",
+         "-af", _loudnorm_filter(src),
          "-ac", "1", "-ar", str(rate), "-c:a", "pcm_s16le", str(dst)],
         check=True,
     )
@@ -104,6 +129,9 @@ def build_item(args: argparse.Namespace, sha256: str, duration: float) -> dict:
 
 def add_to_manifest(manifest: dict, item: dict, today: str) -> dict:
     """Insert or replace ``item`` and list it in the community pack."""
+    previous = next((it for it in manifest.get("items", []) if it.get("id") == item["id"]), None)
+    if previous and previous.get("added_at"):
+        item.setdefault("added_at", previous["added_at"])  # a re-curation is not new
     items = [it for it in manifest.get("items", []) if it.get("id") != item["id"]]
     items.append(item)
     manifest["items"] = items
@@ -114,6 +142,7 @@ def add_to_manifest(manifest: dict, item: dict, today: str) -> dict:
         packs.append(pack)
     if item["id"] not in pack["item_ids"]:
         pack["item_ids"].append(item["id"])
+    item.setdefault("added_at", today)
     manifest["updated_at"] = today
     return manifest
 
@@ -149,7 +178,7 @@ def main(argv: list[str] | None = None) -> int:
     args.manifest.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(f"✓ {args.id}: {duration:.2f}s, sha256 {digest}")
-    print(f"  upload: gh release upload {args.release} {wav.relative_to(_ROOT)} --repo {_REPO} --clobber")
+    print(f"  upload: gh release upload {args.release} {wav.relative_to(_ROOT)} --repo {_REPO}")
     return 0
 
 

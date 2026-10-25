@@ -26,7 +26,7 @@ _FORMS = sorted(
 #: Labels that exist in the repository. Adding one here means creating it in
 #: the repo too (Settings → Labels, or `gh label create`), in the same change.
 KNOWN_LABELS = {
-    "submission", "voice", "preset", "needs-audio",
+    "submission", "voice", "preset", "needs-audio", "approved",
     "bug", "documentation", "duplicate", "enhancement",
     "good first issue", "help wanted", "invalid", "question", "wontfix",
 }
