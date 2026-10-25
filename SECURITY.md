@@ -1,21 +1,33 @@
 # Security Policy
 
-## Supported Versions
+## Supported versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This repository is content, not a release line: `manifest.json` on `main` is
+the only version [VoiceStudio](https://github.com/debpalash/VoiceStudio) loads,
+so security fixes always land on `main`. The app that reads it is covered by
+VoiceStudio's own [security policy](https://github.com/debpalash/VoiceStudio/security/policy).
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
+**Please do not open a public issue for security problems.** Report them
+privately instead:
 
-Use this section to tell people how to report a vulnerability.
+1. **GitHub Security Advisories** (preferred) —
+   [report a vulnerability](https://github.com/debpalash/VoiceStudio/security/advisories/new)
+   on the VoiceStudio repository, which owns the gallery loader.
+2. **Email** — **security@voicestudio.sh**
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Include what you found, how to reproduce it, and the impact you expect. We
+acknowledge reports within **48 hours** and agree on disclosure with you once
+a fix has shipped.
+
+## What counts here
+
+- A manifest entry, script or workflow that would make the app fetch from a
+  host outside the allow-list, skip the SHA-256 audio integrity check, or load
+  something other than data (the gallery is JSON and audio, never code).
+- A workflow that leaks its token or can be steered by issue or PR text.
+- A voice clip that impersonates an identifiable real person without consent —
+  report that privately too, so the clip can be pulled before it spreads.
+
+Flaws in the VoiceStudio app itself belong in the VoiceStudio repository.
