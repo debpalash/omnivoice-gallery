@@ -80,6 +80,8 @@ Add an object to the `items` array in `manifest.json`:
 ```
 
 - 3–15 seconds, clean mono WAV, 16 kHz+; the spoken text in `ref_text`.
+- `language` is required: the app passes it to the cloned profile and would
+  otherwise assume English.
 - **Privacy:** a recorded clip contains a real person's voice. Only submit your
   own voice, or one you have explicit permission to share.
 
@@ -100,6 +102,27 @@ Adding the clip in a comment is always fine — there is no need to open a new
 issue. A bot checks each `[voice]` issue for an attachment and labels it
 `needs-audio` until one arrives, so nothing gets silently lost.
 
+### Curating a voice (maintainers)
+
+`scripts/add_voice.py` turns a submitted clip into a manifest entry in one
+step: it converts the file (MP3 is fine) to mono 16-bit WAV with `ffmpeg`,
+checks the length, hashes the WAV, adds the item and the `community-voices`
+pack entry, bumps `updated_at`, and prints the upload command.
+
+```bash
+python scripts/add_voice.py clip.mp3 --id community_pt_br_name --name "Name" \
+  --use-case narration --language Portuguese --gender female \
+  --author their-handle --license CC-BY-4.0 \
+  --submission https://github.com/debpalash/omnivoice-gallery/issues/N \
+  --ref-text "The exact words in the clip."
+gh release upload voices-v1 build/community_pt_br_name.wav --repo debpalash/omnivoice-gallery
+python scripts/verify_voice_audio.py
+```
+
+Check `ref_text` against the recording (a speech-to-text pass is the quick
+way) and listen for the consent rule before curating. Never replace a Release
+asset in place: the app pins its SHA-256, so upload a new file instead.
+
 Note for maintainers: a label an issue form declares but the repository does not
 have is silently dropped by GitHub, with no warning anywhere — which is why the
 submission automation triggers on the `[voice]` title prefix as well as the
@@ -115,8 +138,10 @@ renders in the app". The gate verifies:
 - every preset `instruct` uses only valid taxonomy tokens, at most one per
   category, and never mixes an English accent with a Chinese dialect;
 - each `use_case` is one of the seven the app knows;
-- recorded-voice `audio.url` points at an allow-listed host (jsDelivr / GitHub)
-  over https and carries a 64-char `sha256` for the integrity check;
+- recorded-voice `audio.url` points at a `.wav` on an allow-listed host
+  (jsDelivr / GitHub) over https and carries a 64-char `sha256` for the
+  integrity check, a non-empty `ref_text`, and a 3–15s `duration`;
+- every item has a `language` and a `license`, and `updated_at` is a date;
 - item ids are unique and packs only reference real items.
 
 Run it yourself before opening the PR:
@@ -125,4 +150,11 @@ Run it yourself before opening the PR:
 python scripts/validate_manifest.py        # pip install jsonschema for the schema pass
 ```
 
-Keep `manifest.json` valid JSON and bump `updated_at`.
+A second job, `scripts/verify_voice_audio.py`, downloads every recorded voice
+the way the app does and checks its hash, WAV container and length. It runs on
+manifest changes and weekly, so a deleted or altered Release asset fails CI
+rather than a user's download.
+
+Keep `manifest.json` valid JSON and bump `updated_at`. After a merge to `main`,
+a workflow purges jsDelivr's cache so the app sees the change within minutes
+rather than up to 12 hours.

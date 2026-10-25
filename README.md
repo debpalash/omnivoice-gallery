@@ -14,8 +14,10 @@ VoiceStudio fetches `manifest.json` at runtime over the **jsDelivr CDN**
 https://cdn.jsdelivr.net/gh/debpalash/omnivoice-gallery@main/manifest.json
 ```
 
-Recorded-voice audio is attached to **GitHub Releases** (CDN-backed) and
-referenced by URL from the manifest. The app caches everything locally and
+Recorded-voice audio is attached to **GitHub Releases** (CDN-backed, e.g.
+[`voices-v1`](https://github.com/debpalash/omnivoice-gallery/releases/tag/voices-v1))
+and referenced by URL + SHA-256 from the manifest. Every merge to `main` purges
+the jsDelivr cache, so new content reaches the app within minutes. The app caches everything locally and
 keeps working offline; its built-in generated archetypes need no network at
 all, so the gallery is never empty.
 
@@ -24,9 +26,18 @@ all, so the gallery is never empty.
 ```
 manifest.json                 # the index — packs + items (presets & voices)
 schema/manifest.schema.json   # JSON Schema the app validates against
+scripts/validate_manifest.py  # CI gate: same rules the app applies at runtime
+scripts/verify_voice_audio.py # CI: downloads each clip, checks hash + WAV + length
+scripts/add_voice.py          # maintainers: clip → WAV → manifest entry
 .github/ISSUE_TEMPLATE/       # one-click submission forms
 CONTRIBUTING.md               # how to add your voice
 ```
+
+### Packs
+
+- **VoiceStudio Starter** — 24 designed voices shipped by the VoiceStudio team.
+- **Community Voices** — recorded voices from the community, starting with two
+  Brazilian Portuguese voices by [@iluucasz](https://github.com/iluucasz).
 
 ### Item types
 

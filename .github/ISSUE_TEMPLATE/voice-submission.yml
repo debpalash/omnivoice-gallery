@@ -25,6 +25,25 @@ body:
       options: [narration, conversational, characters, social, entertainment, advertisement, informative]
     validations:
       required: true
+  # Both Portuguese submissions (#9, #10) had to put the language in free
+  # text. The app passes it to the cloned profile and assumes English without
+  # it, so it is a field of its own.
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: The language spoken in the clip, in English (add the region if it matters).
+      placeholder: "Portuguese (Brazil)"
+    validations:
+      required: true
+  - type: dropdown
+    id: gender
+    attributes:
+      label: Voice gender
+      description: Used for the gallery's filter. Leave unset if neither fits.
+      options: [female, male]
+    validations:
+      required: false
   - type: textarea
     id: ref_text
     attributes:

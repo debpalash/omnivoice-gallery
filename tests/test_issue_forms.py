@@ -17,7 +17,11 @@ import os
 import yaml
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_FORMS = sorted(glob.glob(os.path.join(_ROOT, ".github", "ISSUE_TEMPLATE", "*.yml")))
+# config.yml is the template chooser's settings, not a form.
+_FORMS = sorted(
+    p for p in glob.glob(os.path.join(_ROOT, ".github", "ISSUE_TEMPLATE", "*.yml"))
+    if os.path.basename(p) != "config.yml"
+)
 
 #: Labels that exist in the repository. Adding one here means creating it in
 #: the repo too (Settings → Labels, or `gh label create`), in the same change.
@@ -89,3 +93,13 @@ def test_license_is_a_dropdown_everywhere():
                 break
         else:
             raise AssertionError(f"{os.path.basename(path)} has no licence field")
+
+
+def test_voice_form_asks_for_language():
+    # The app assumes English when an item has no language, so a voice
+    # submission must collect one rather than leave it to free text (#9, #10).
+    path = os.path.join(_ROOT, ".github", "ISSUE_TEMPLATE", "voice-submission.yml")
+    with open(path, encoding="utf-8") as fh:
+        body = yaml.safe_load(fh)["body"]
+    field = next((f for f in body if f.get("id") == "language"), None)
+    assert field is not None and field["validations"]["required"] is True

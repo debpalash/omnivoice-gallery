@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "name": "VoiceStudio Gallery",
-  "updated_at": "2026-05-31",
+  "updated_at": "2026-10-26",
   "homepage": "https://github.com/debpalash/omnivoice-gallery",
   "packs": [
     {
@@ -34,6 +34,16 @@
         "feat_21_the_upbeat",
         "feat_22_the_teacher",
         "feat_23_the_explainer"
+      ]
+    },
+    {
+      "id": "community-voices",
+      "name": "Community Voices",
+      "description": "Recorded reference voices shared by the community, ready to clone.",
+      "icon": "Users",
+      "item_ids": [
+        "community_pt_br_thalia",
+        "community_pt_br_lucas"
       ]
     }
   ],
@@ -541,6 +551,56 @@
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
+    },
+    {
+      "id": "community_pt_br_thalia",
+      "type": "voice",
+      "name": "Thalia",
+      "use_case": "conversational",
+      "facets": {
+        "gender": "female",
+        "age": null,
+        "pitch": null,
+        "accent": null,
+        "whisper": false,
+        "lang": "Portuguese"
+      },
+      "language": "Portuguese",
+      "audio": {
+        "url": "https://github.com/debpalash/omnivoice-gallery/releases/download/voices-v1/community_pt_br_thalia.wav",
+        "ref_text": "Olá! Hoje acordei animada, abri a janela e vi a chuva chegando. Que surpresa! Preparei um café quentinho, respirei fundo e pensei: vai ser um ótimo dia!",
+        "duration": 13.32,
+        "sha256": "7b0ed14bb7ffe3807bff8394482f7f9cfe77979e4a9f316a01a9616b889f6cfb"
+      },
+      "author": "iluucasz",
+      "license": "CC-BY-4.0",
+      "source": "community",
+      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/9"
+    },
+    {
+      "id": "community_pt_br_lucas",
+      "type": "voice",
+      "name": "Lucas",
+      "use_case": "narration",
+      "facets": {
+        "gender": "male",
+        "age": null,
+        "pitch": null,
+        "accent": null,
+        "whisper": false,
+        "lang": "Portuguese"
+      },
+      "language": "Portuguese",
+      "audio": {
+        "url": "https://github.com/debpalash/omnivoice-gallery/releases/download/voices-v1/community_pt_br_lucas.wav",
+        "ref_text": "Voz masculina brasileira, grave e encorpada, com timbre de barítono profundo, quente e levemente rouco.",
+        "duration": 7.81,
+        "sha256": "73e2bda7e78e12e272fcca135d3f0e3c326d77963121c699083f331b0a7e89c0"
+      },
+      "author": "iluucasz",
+      "license": "CC-BY-4.0",
+      "source": "community",
+      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/10"
     }
   ]
 }
