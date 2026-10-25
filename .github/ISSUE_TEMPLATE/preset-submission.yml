@@ -30,13 +30,28 @@ body:
       description: "e.g. female, middle-aged, low pitch, british accent"
     validations:
       required: true
-  - type: input
+  # Same free-text field as the voice form, same failure available to it: a
+  # licence a maintainer cannot act on. Kept in lockstep with that form.
+  - type: dropdown
     id: license
     attributes:
       label: License
-      placeholder: "CC-BY-4.0"
+      description: The licence you are granting for this preset. You must have the right to grant it.
+      options:
+        - CC-BY-4.0 (credit required)
+        - CC-BY-SA-4.0 (credit required, share-alike)
+        - CC0-1.0 (public domain dedication)
+        - OpenRAIL-M
+        - Other (name it in "Anything else" below)
     validations:
       required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Notes for the maintainer, and your licence name if you chose "Other".
+    validations:
+      required: false
   - type: checkboxes
     id: consent
     attributes:

@@ -12,7 +12,10 @@ voices would otherwise be cloned without permission. Submissions that do this
 will be declined. Original characters, your own voice, consented voice actors,
 and public-domain material are all welcome.
 
-Every item must declare a `license` you have the right to grant.
+Every item must declare a `license` you have the right to grant. The submission
+forms offer `CC-BY-4.0`, `CC-BY-SA-4.0`, `CC0-1.0` and `OpenRAIL-M`, plus an
+"Other" option you name in the notes box — pick from the list where you can, so
+a maintainer does not have to interpret it.
 
 ## Option A — submit from inside the app (easiest)
 
@@ -80,7 +83,46 @@ Add an object to the `items` array in `manifest.json`:
 - **Privacy:** a recorded clip contains a real person's voice. Only submit your
   own voice, or one you have explicit permission to share.
 
+#### If the upload fails
+
+GitHub accepts `.wav` and `.mp3` up to **10 MB** in an issue. When an upload
+fails you get `Failed to upload …` left in the text box instead of a link, and
+the file never reaches us — so the issue looks complete and is not. Usual
+causes:
+
+| Cause | Fix |
+| --- | --- |
+| Over 10 MB | An uncompressed WAV is roughly 10 MB per minute at 48 kHz stereo. A 3–15s clip should be well under that — trim it, or export mono at 16–24 kHz, which is what cloning uses anyway. |
+| A type GitHub refuses | `.ogg`, `.flac`, `.m4a` and `.aac` are not accepted. Convert to WAV or MP3, or put the file in a `.zip`. |
+| A flaky upload | Retry in a **comment** on the issue rather than inside the form. |
+
+Adding the clip in a comment is always fine — there is no need to open a new
+issue. A bot checks each `[voice]` issue for an attachment and labels it
+`needs-audio` until one arrives, so nothing gets silently lost.
+
+Note for maintainers: a label an issue form declares but the repository does not
+have is silently dropped by GitHub, with no warning anywhere — which is why the
+submission automation triggers on the `[voice]` title prefix as well as the
+label, and why `tests/test_issue_forms.py` pins the declared set.
+
 ## Validation
 
-PRs are checked against `schema/manifest.schema.json`. Keep `manifest.json`
-valid JSON and bump `updated_at`.
+Every PR runs **CI** (`.github/workflows/validate-manifest.yml`) that checks
+`manifest.json` against `schema/manifest.schema.json` **and** the same semantic
+rules the OmniVoice app applies at runtime — so "green CI" means "loads and
+renders in the app". The gate verifies:
+
+- every preset `instruct` uses only valid taxonomy tokens, at most one per
+  category, and never mixes an English accent with a Chinese dialect;
+- each `use_case` is one of the seven the app knows;
+- recorded-voice `audio.url` points at an allow-listed host (jsDelivr / GitHub)
+  over https and carries a 64-char `sha256` for the integrity check;
+- item ids are unique and packs only reference real items.
+
+Run it yourself before opening the PR:
+
+```bash
+python scripts/validate_manifest.py        # pip install jsonschema for the schema pass
+```
+
+Keep `manifest.json` valid JSON and bump `updated_at`.

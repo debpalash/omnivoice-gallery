@@ -6,14 +6,16 @@ body:
   - type: markdown
     attributes:
       value: |
-        A **recorded voice** is an audio reference clip. **Drag-and-drop your
-        WAV file into this issue** (GitHub attaches it). A maintainer will move
-        it to a Release and add it to the manifest.
-        **Privacy:** only submit your own voice or one you have permission to share.
+        A **recorded voice** is an audio reference clip. A maintainer will move
+        your file to a Release and add it to the manifest.
+
+        **Privacy:** only submit your own voice, or one you have permission to share.
   - type: input
     id: name
     attributes:
       label: Voice name
+      description: What this voice will be called in the gallery.
+      placeholder: "Calm Evening Narrator"
     validations:
       required: true
   - type: dropdown
@@ -27,15 +29,60 @@ body:
     id: ref_text
     attributes:
       label: Spoken text (exact words in the clip)
+      description: >-
+        Type the words here as text. This is not the place for the audio file —
+        it becomes the clip's `ref_text` in the manifest, and cloning quality
+        depends on it matching the recording word for word.
+      placeholder: "The quick brown fox jumps over the lazy dog."
     validations:
       required: true
-  - type: input
+  # A free-text field here collected "How are you" as a licence (#3). The
+  # manifest needs a licence a maintainer can actually act on, so the options
+  # are the ones this gallery accepts — with an explicit escape hatch rather
+  # than a box that takes anything.
+  - type: dropdown
     id: license
     attributes:
       label: License
-      placeholder: "CC-BY-4.0"
+      description: The licence you are granting for this clip. You must have the right to grant it.
+      options:
+        - CC-BY-4.0 (credit required)
+        - CC-BY-SA-4.0 (credit required, share-alike)
+        - CC0-1.0 (public domain dedication)
+        - OpenRAIL-M
+        - Other (name it in "Anything else" below)
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: |
+        ### Now attach the audio
+
+        Drag your file into the **"Anything else"** box below, or into a comment
+        after opening this issue. GitHub accepts `.wav` and `.mp3` up to **10 MB**.
+
+        **If the upload fails** — you will see `Failed to upload …` in the text
+        box instead of a link — it is usually one of:
+
+        - **over 10 MB**: a 3–15s clip should be well under that. An uncompressed
+          WAV at 48 kHz stereo is ~10 MB/minute, so trim the clip, or export mono
+          at 16–24 kHz (which is what cloning uses anyway).
+        - **a file type GitHub rejects**: `.ogg`, `.flac`, `.m4a` and `.aac` are
+          not accepted. Convert to WAV or MP3, or put the file in a `.zip`.
+        - **a flaky upload**: retry in a comment on the issue rather than in the
+          form.
+
+        Please do not close and reopen a new issue — just add a comment with the
+        file, and it will be picked up.
+  - type: textarea
+    id: audio
+    attributes:
+      label: Anything else
+      description: >-
+        Attach the clip here (3–15s, clean mono WAV, 16 kHz or higher). Add any
+        notes for the maintainer, and name your licence if you chose "Other".
+    validations:
+      required: false
   - type: checkboxes
     id: consent
     attributes:
@@ -45,5 +92,9 @@ body:
           required: true
         - label: This clip does not impersonate an identifiable real person without consent.
           required: true
-        - label: I attached the audio file (3–15s, clean WAV) to this issue.
-          required: true
+        # Deliberately NOT required. It was, and it was ticked on submissions
+        # that carried no audio at all — a self-certification cannot verify
+        # itself, so requiring it only taught submitters to tick it. The
+        # automated check on this issue is what actually looks.
+        - label: I attached the audio clip above (a maintainer will confirm it arrived).
+          required: false
