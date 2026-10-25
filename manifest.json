@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "name": "OmniVoice Gallery",
+  "name": "VoiceStudio Gallery",
   "updated_at": "2026-05-31",
   "homepage": "https://github.com/debpalash/omnivoice-gallery",
   "packs": [
     {
       "id": "omnivoice-starter",
-      "name": "OmniVoice Starter",
-      "description": "Curated designed voices shipped by the OmniVoice team.",
+      "name": "VoiceStudio Starter",
+      "description": "Curated designed voices shipped by the VoiceStudio team.",
       "icon": "Sparkles",
       "item_ids": [
         "feat_00_the_librarian",
@@ -55,7 +55,7 @@
       "instruct": "female, middle-aged, low pitch, british accent",
       "language": "English",
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -76,7 +76,7 @@
       "instruct": "male, middle-aged, low pitch, american accent",
       "language": "English",
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -97,7 +97,7 @@
       "instruct": "female, middle-aged, low pitch, whisper",
       "language": "English",
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -118,7 +118,7 @@
       "instruct": "male, elderly, low pitch, british accent",
       "language": "English",
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -139,7 +139,7 @@
       "instruct": "female, young adult, moderate pitch, american accent",
       "language": "English",
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -160,7 +160,7 @@
       "instruct": "female, young adult, moderate pitch, indian accent",
       "language": "English",
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -181,7 +181,7 @@
       "instruct": "male, young adult, moderate pitch, australian accent",
       "language": "English",
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -202,7 +202,7 @@
       "instruct": "female, middle-aged, moderate pitch, canadian accent",
       "language": "English",
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -223,7 +223,7 @@
       "instruct": "male, elderly, very low pitch",
       "language": "English",
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -244,7 +244,7 @@
       "instruct": "teenager, high pitch",
       "language": "English",
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -265,7 +265,7 @@
       "instruct": "male, young adult, high pitch, american accent",
       "language": "English",
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -286,7 +286,7 @@
       "instruct": "female, child, very high pitch",
       "language": "English",
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -307,7 +307,7 @@
       "instruct": "male, middle-aged, very low pitch",
       "language": "English",
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -328,7 +328,7 @@
       "instruct": "female, young adult, high pitch, australian accent",
       "language": "English",
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -349,7 +349,7 @@
       "instruct": "male, young adult, very high pitch, american accent",
       "language": "English",
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -370,7 +370,7 @@
       "instruct": "female, young adult, high pitch",
       "language": "English",
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -391,7 +391,7 @@
       "instruct": "male, middle-aged, moderate pitch, american accent",
       "language": "English",
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -412,7 +412,7 @@
       "instruct": "male, middle-aged, high pitch, british accent",
       "language": "English",
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -433,7 +433,7 @@
       "instruct": "male, middle-aged, moderate pitch",
       "language": "English",
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -454,7 +454,7 @@
       "instruct": "male, middle-aged, low pitch",
       "language": "English",
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -475,7 +475,7 @@
       "instruct": "female, middle-aged, moderate pitch, british accent",
       "language": "English",
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -496,7 +496,7 @@
       "instruct": "female, young adult, high pitch, american accent",
       "language": "English",
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -517,7 +517,7 @@
       "instruct": "female, middle-aged, moderate pitch, american accent",
       "language": "English",
       "sample_script": "Let's break this down simply. There are three things you need to know, and the very first one surprises most people.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     },
@@ -538,7 +538,7 @@
       "instruct": "male, young adult, moderate pitch, british accent",
       "language": "English",
       "sample_script": "Let's break this down simply. There are three things you need to know, and the very first one surprises most people.",
-      "author": "OmniVoice",
+      "author": "VoiceStudio",
       "license": "OpenRAIL-M",
       "source": "starter"
     }

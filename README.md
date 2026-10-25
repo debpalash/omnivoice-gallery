@@ -1,13 +1,13 @@
-# OmniVoice Gallery
+# VoiceStudio Gallery
 
-The community content repository for **[OmniVoice Studio](https://github.com/debpalash/OmniVoice-Studio)** —
+The community content repository for **[VoiceStudio](https://github.com/debpalash/VoiceStudio)** —
 a marketplace of ready-to-use **designed voices** and **community-contributed
 reference voices**, loaded by the app *after install* so the installer stays
 small and content can ship without an app release.
 
 ## How the app loads this
 
-OmniVoice fetches `manifest.json` at runtime over the **jsDelivr CDN**
+VoiceStudio fetches `manifest.json` at runtime over the **jsDelivr CDN**
 (no rate limits, global cache, works offline once cached):
 
 ```
@@ -45,5 +45,5 @@ their consent.** This is a library of original, designed, and consented voices.
 ## License
 
 Repository tooling/docs: MIT. Each gallery **item** carries its own `license`
-field — respect it. Designed presets shipped by the OmniVoice team are
+field — respect it. Designed presets shipped by the VoiceStudio team are
 OpenRAIL-M (same as the engine).

@@ -1,4 +1,4 @@
-# Contributing to the OmniVoice Gallery
+# Contributing to the VoiceStudio Gallery
 
 Thanks for helping build the community voice library! There are two kinds of
 contributions: **presets** (designed voices) and **voices** (recorded clips).
@@ -19,7 +19,7 @@ a maintainer does not have to interpret it.
 
 ## Option A — submit from inside the app (easiest)
 
-In OmniVoice → **Gallery → Submit to gallery**. The app pre-fills an issue here
+In VoiceStudio → **Gallery → Submit to gallery**. The app pre-fills an issue here
 with the metadata (and, for designed voices, the validated `instruct`). Review
 it and click submit. A maintainer curates it into `manifest.json`.
 
@@ -109,7 +109,7 @@ label, and why `tests/test_issue_forms.py` pins the declared set.
 
 Every PR runs **CI** (`.github/workflows/validate-manifest.yml`) that checks
 `manifest.json` against `schema/manifest.schema.json` **and** the same semantic
-rules the OmniVoice app applies at runtime — so "green CI" means "loads and
+rules the VoiceStudio app applies at runtime — so "green CI" means "loads and
 renders in the app". The gate verifies:
 
 - every preset `instruct` uses only valid taxonomy tokens, at most one per
