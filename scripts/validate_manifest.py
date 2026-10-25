@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Validate ``manifest.json`` before it ships to OmniVoice users.
+"""Validate ``manifest.json`` before it ships to VoiceStudio users.
 
 This is the automated curation gate. Every pull request that touches the
 manifest runs this in CI (``.github/workflows/validate-manifest.yml``), so a
 malformed entry can never reach the app's gallery.
 
-It mirrors the **runtime** validation in OmniVoice's backend
+It mirrors the **runtime** validation in VoiceStudio's backend
 (``backend/api/routers/community.py`` :: ``validate_item`` / ``is_valid_instruct``
 / ``_safe_audio_url``) and layers the repo's JSON Schema
 (``schema/manifest.schema.json``) on top. The guarantee:
@@ -38,10 +38,10 @@ _SCHEMA_PATH = _ROOT / "schema" / "manifest.schema.json"
 
 # ── Taxonomy vocabulary ───────────────────────────────────────────────────────
 # Keep in sync with ``omnivoice/utils/voice_design.py`` (``_INSTRUCT_CATEGORIES``)
-# in the main OmniVoice repo. This is the model's *fixed* instruct vocabulary; an
+# in the OmniVoice engine VoiceStudio bundles. This is the model's *fixed* instruct vocabulary; an
 # instruct token outside it crashes synthesis (the issue-#89 failure mode). It is
 # mirrored here — rather than imported — so this gallery repo validates
-# standalone, with no dependency on the OmniVoice backend being checked out.
+# standalone, with no dependency on the VoiceStudio backend being checked out.
 _GENDER = {"male", "female"}
 _AGE = {"child", "teenager", "young adult", "middle-aged", "elderly"}
 _PITCH = {

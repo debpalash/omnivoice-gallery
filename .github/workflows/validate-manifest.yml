@@ -1,7 +1,7 @@
 name: Validate gallery manifest
 
 # Automated curation gate: a community submission can't land unless manifest.json
-# still loads and renders in the app. Mirrors OmniVoice's runtime validation.
+# still loads and renders in the app. Mirrors VoiceStudio's runtime validation.
 on:
   pull_request:
     paths:

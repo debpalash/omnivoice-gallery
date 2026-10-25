@@ -109,7 +109,7 @@ label, and why `tests/test_issue_forms.py` pins the declared set.
 
 Every PR runs **CI** (`.github/workflows/validate-manifest.yml`) that checks
 `manifest.json` against `schema/manifest.schema.json` **and** the same semantic
-rules the OmniVoice app applies at runtime — so "green CI" means "loads and
+rules the VoiceStudio app applies at runtime — so "green CI" means "loads and
 renders in the app". The gate verifies:
 
 - every preset `instruct` uses only valid taxonomy tokens, at most one per

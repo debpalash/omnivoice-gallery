@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/debpalash/omnivoice-gallery/schema/manifest.schema.json",
-  "title": "OmniVoice Gallery manifest",
+  "title": "VoiceStudio Gallery manifest",
   "type": "object",
   "required": ["schema_version", "items"],
   "properties": {
