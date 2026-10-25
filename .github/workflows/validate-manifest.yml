@@ -17,6 +17,11 @@ on:
       - "schema/**"
       - "scripts/**"
       - "tests/**"
+  # Release assets can vanish or change without touching the manifest; the
+  # weekly run is what notices before a user does.
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -56,3 +61,17 @@ jobs:
               sys.exit("unparseable YAML:\n" + "\n".join(bad))
           print("all issue forms and workflows parse")
           PY
+
+  verify-audio:
+    # Downloads every recorded voice the way the app does and checks sha256,
+    # WAV container and length — the things the manifest alone cannot prove.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify recorded-voice audio
+        run: python scripts/verify_voice_audio.py

@@ -1,0 +1,34 @@
+name: Refresh the CDN copy
+
+# VoiceStudio reads manifest.json through jsDelivr, which caches a branch ref
+# for up to 12 hours (and up to 7 days at some edges). Without a purge, a voice
+# merged here can take that long to appear in the app. Purging is a public,
+# unauthenticated jsDelivr endpoint, so this needs no secrets.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "manifest.json"
+      - "schema/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge jsDelivr
+        run: |
+          set -euo pipefail
+          for path in manifest.json schema/manifest.schema.json; do
+            url="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/${path}"
+            # A purge failure must not look like a broken release; jsDelivr
+            # still expires the cache on its own, so report and carry on.
+            if body=$(curl -fsS --retry 3 --retry-delay 5 "$url"); then
+              echo "purged ${path}: ${body}"
+            else
+              echo "::warning::jsDelivr purge failed for ${path}; the app will see it when the cache expires"
+            fi
+          done

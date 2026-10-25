@@ -3,23 +3,54 @@
   "$id": "https://github.com/debpalash/omnivoice-gallery/schema/manifest.schema.json",
   "title": "VoiceStudio Gallery manifest",
   "type": "object",
-  "required": ["schema_version", "items"],
+  "required": [
+    "schema_version",
+    "items"
+  ],
   "properties": {
-    "schema_version": { "type": "integer", "const": 1 },
-    "name": { "type": "string" },
-    "updated_at": { "type": "string" },
-    "homepage": { "type": "string", "format": "uri" },
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "name": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
     "packs": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "item_ids"],
+        "required": [
+          "id",
+          "name",
+          "item_ids"
+        ],
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "icon": { "type": "string" },
-          "item_ids": { "type": "array", "items": { "type": "string" } }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "item_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -27,45 +58,166 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "type", "name", "use_case", "facets"],
+        "required": [
+          "id",
+          "type",
+          "name",
+          "use_case",
+          "facets",
+          "language",
+          "license"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-zA-Z0-9_-]+$" },
-          "type": { "type": "string", "enum": ["preset", "voice"] },
-          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
-          "icon": { "type": "string" },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{1,128}$"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "preset",
+              "voice"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "icon": {
+            "type": "string"
+          },
           "use_case": {
             "type": "string",
-            "enum": ["narration", "conversational", "characters", "social",
-                     "entertainment", "advertisement", "informative"]
+            "enum": [
+              "narration",
+              "conversational",
+              "characters",
+              "social",
+              "entertainment",
+              "advertisement",
+              "informative"
+            ]
           },
           "facets": {
             "type": "object",
             "properties": {
-              "gender": { "type": ["string", "null"] },
-              "age": { "type": ["string", "null"] },
-              "pitch": { "type": ["string", "null"] },
-              "accent": { "type": ["string", "null"] },
-              "whisper": { "type": "boolean" },
-              "lang": { "type": "string" }
+              "gender": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "age": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "pitch": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "accent": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "whisper": {
+                "type": "boolean"
+              },
+              "lang": {
+                "type": "string"
+              }
             }
           },
-          "instruct": { "type": "string" },
-          "language": { "type": "string" },
-          "sample_script": { "type": "string" },
+          "instruct": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "sample_script": {
+            "type": "string",
+            "maxLength": 2000
+          },
           "audio": {
             "type": "object",
-            "required": ["url"],
+            "required": [
+              "url",
+              "sha256",
+              "ref_text"
+            ],
             "properties": {
-              "url": { "type": "string", "format": "uri" },
-              "ref_text": { "type": "string" },
-              "duration": { "type": "number" },
-              "sha256": { "type": "string" }
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://.+\\.wav$"
+              },
+              "ref_text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "duration": {
+                "type": "number",
+                "minimum": 3,
+                "maximum": 15
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$"
+              }
             }
           },
-          "author": { "type": "string" },
-          "license": { "type": "string" },
-          "source": { "type": "string" }
-        }
+          "author": {
+            "type": "string"
+          },
+          "license": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "submission": {
+            "type": "string",
+            "format": "uri",
+            "description": "The submission issue this item was curated from."
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "preset"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "instruct"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "voice"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "audio"
+              ]
+            }
+          }
+        ]
       }
     }
   }

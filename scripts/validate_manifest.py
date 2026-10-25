@@ -70,7 +70,12 @@ _ALLOWED_AUDIO_HOSTS = {
     "cdn.jsdelivr.net", "github.com", "raw.githubusercontent.com",
     "objects.githubusercontent.com", "release-assets.githubusercontent.com",
 }
-_ID_RE = re.compile(r"^[a-zA-Z0-9_-]+$")
+_ID_RE = re.compile(r"^[a-zA-Z0-9_-]{1,128}$")  # backend _ITEM_ID_RE
+_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# The gallery's own bounds for a reference clip (CONTRIBUTING.md); the app
+# caps size, this caps length so every clip is usable for cloning.
+_MIN_CLIP_SECONDS = 3.0
+_MAX_CLIP_SECONDS = 15.0
 _SHA256_RE = re.compile(r"^[0-9a-fA-F]{64}$")
 
 
@@ -118,6 +123,21 @@ def _check_audio(item: dict) -> list[str]:
     sha = audio.get("sha256", "")
     if not _SHA256_RE.match(sha or ""):
         errs.append("audio.sha256 must be a 64-char hex digest (integrity is enforced at download)")
+    # The app refuses anything that is not a playable WAV *after* downloading
+    # it, so an MP3 here would pass every other check and fail on a user's
+    # machine. Release assets keep their filename, so the extension is honest.
+    if u is not None and not (u.path or "").lower().endswith(".wav"):
+        errs.append("audio.url must point at a .wav file (the app only clones from WAV)")
+    if not (audio.get("ref_text") or "").strip():
+        errs.append("audio.ref_text is required — the exact words spoken, which cloning conditions on")
+    duration = audio.get("duration")
+    if duration is not None and (
+        isinstance(duration, bool) or not isinstance(duration, (int, float))
+        or not _MIN_CLIP_SECONDS <= duration <= _MAX_CLIP_SECONDS
+    ):
+        errs.append(
+            f"audio.duration must be {_MIN_CLIP_SECONDS:g}–{_MAX_CLIP_SECONDS:g} seconds, got {duration!r}"
+        )
     return errs
 
 
@@ -131,7 +151,7 @@ def _check_item(item: dict, index: int) -> list[str]:
     if not item_id:
         errs.append(f"{label}: missing `id`")
     elif not _ID_RE.match(item_id):
-        errs.append(f"{label}: id must match ^[a-zA-Z0-9_-]+$")
+        errs.append(f"{label}: id must match ^[a-zA-Z0-9_-]{{1,128}}$")
 
     if not (item.get("name") or "").strip():
         errs.append(f"{label}: missing `name`")
@@ -147,6 +167,14 @@ def _check_item(item: dict, index: int) -> list[str]:
 
     if not isinstance(item.get("facets"), dict):
         errs.append(f"{label}: missing `facets` object")
+
+    # The app falls back to English when `language` is missing, so a Portuguese
+    # clip without it would be cloned into an English profile.
+    if not isinstance(item.get("language"), str) or not item["language"].strip():
+        errs.append(f"{label}: missing `language` (the app would assume English)")
+
+    if not isinstance(item.get("license"), str) or not item["license"].strip():
+        errs.append(f"{label}: missing `license` — every item must say what users may do with it")
 
     if item_type == "preset":
         errs += [f"{label}: {e}" for e in _check_instruct(item.get("instruct", ""))]
@@ -190,6 +218,9 @@ def validate(path: Path) -> list[str]:
 
     if manifest.get("schema_version") != 1:
         problems.append(f"schema_version must be 1, got {manifest.get('schema_version')!r}")
+
+    if not _DATE_RE.match(str(manifest.get("updated_at", ""))):
+        problems.append("updated_at must be an ISO date (YYYY-MM-DD) — bump it with every change")
 
     items = manifest.get("items")
     if not isinstance(items, list) or not items:

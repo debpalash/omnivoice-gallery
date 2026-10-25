@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Bug or idea for the VoiceStudio app
+    url: https://github.com/debpalash/VoiceStudio/issues/new/choose
+    about: The app (cloning, dubbing, the Gallery screen itself) lives in the VoiceStudio repository.
+  - name: Report a security problem privately
+    url: https://github.com/debpalash/VoiceStudio/security/advisories/new
+    about: Includes a clip that impersonates a real person without consent — please do not post those publicly.
