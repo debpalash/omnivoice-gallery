@@ -45,6 +45,38 @@
         "community_pt_br_thalia",
         "community_pt_br_lucas"
       ]
+    },
+    {
+      "id": "world-voices",
+      "name": "World Voices",
+      "description": "Designed voices for languages the app does not ship presets for yet, each previewed in its own language.",
+      "icon": "Globe",
+      "item_ids": [
+        "world_dutch_narrator",
+        "world_dutch_explainer",
+        "world_turkish_narrator",
+        "world_turkish_explainer",
+        "world_polish_narrator",
+        "world_polish_explainer",
+        "world_vietnamese_narrator",
+        "world_vietnamese_explainer",
+        "world_indonesian_narrator",
+        "world_indonesian_explainer",
+        "world_swedish_narrator",
+        "world_swedish_explainer",
+        "world_greek_narrator",
+        "world_greek_explainer",
+        "world_ukrainian_narrator",
+        "world_ukrainian_explainer",
+        "world_czech_narrator",
+        "world_czech_explainer",
+        "world_romanian_narrator",
+        "world_romanian_explainer",
+        "world_danish_narrator",
+        "world_danish_explainer",
+        "world_finnish_narrator",
+        "world_finnish_explainer"
+      ]
     }
   ],
   "items": [
@@ -67,7 +99,8 @@
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_01_the_documentarian",
@@ -88,7 +121,8 @@
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_02_the_calm_guide",
@@ -109,7 +143,8 @@
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_03_the_storyteller",
@@ -130,7 +165,8 @@
       "sample_script": "The valley had been quiet for a hundred years, and tonight, for the first time, something stirred beneath the old stone bridge.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_04_the_neighbor",
@@ -151,7 +187,8 @@
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_05_the_helpdesk",
@@ -172,7 +209,8 @@
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_06_the_mate",
@@ -193,7 +231,8 @@
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_07_the_companion",
@@ -214,7 +253,8 @@
       "sample_script": "Oh hey, I didn't expect to run into you here! How have you been? We should really catch up properly one of these days.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_08_captain_crusty",
@@ -235,7 +275,8 @@
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_09_junior_quacks",
@@ -256,7 +297,8 @@
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_10_the_champion",
@@ -277,7 +319,8 @@
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_11_the_pixie",
@@ -298,7 +341,8 @@
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_12_the_ogre",
@@ -319,7 +363,8 @@
       "sample_script": "You think you can stop me? Ha! I have crossed oceans of time and bent whole kingdoms to my will.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_13_the_podcaster",
@@ -340,7 +385,8 @@
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_14_the_hype_host",
@@ -361,7 +407,8 @@
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_15_the_vlogger",
@@ -382,7 +429,8 @@
       "sample_script": "What is up, everyone, welcome back to the channel! Today we are trying something I have honestly never done before.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_16_the_anchor",
@@ -403,7 +451,8 @@
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_17_the_commentator",
@@ -424,7 +473,8 @@
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_18_the_game_host",
@@ -445,7 +495,8 @@
       "sample_script": "Good evening, and welcome. Tonight's top story is one you will not want to miss, so stay right there — we'll be back after this.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_19_the_promo_voice",
@@ -466,7 +517,8 @@
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_20_the_luxe",
@@ -487,7 +539,8 @@
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_21_the_upbeat",
@@ -508,7 +561,8 @@
       "sample_script": "Introducing a whole new way to get more done in less time. Available today. Your best work starts right now.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_22_the_teacher",
@@ -529,7 +583,8 @@
       "sample_script": "Let's break this down simply. There are three things you need to know, and the very first one surprises most people.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "feat_23_the_explainer",
@@ -550,7 +605,8 @@
       "sample_script": "Let's break this down simply. There are three things you need to know, and the very first one surprises most people.",
       "author": "VoiceStudio",
       "license": "OpenRAIL-M",
-      "source": "starter"
+      "source": "starter",
+      "added_at": "2026-05-31"
     },
     {
       "id": "community_pt_br_thalia",
@@ -575,7 +631,8 @@
       "author": "iluucasz",
       "license": "CC-BY-4.0",
       "source": "community",
-      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/9"
+      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/9",
+      "added_at": "2026-10-26"
     },
     {
       "id": "community_pt_br_lucas",
@@ -600,7 +657,536 @@
       "author": "iluucasz",
       "license": "CC-BY-4.0",
       "source": "community",
-      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/10"
+      "submission": "https://github.com/debpalash/omnivoice-gallery/issues/10",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_dutch_narrator",
+      "type": "preset",
+      "name": "Dutch Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Dutch"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Dutch",
+      "sample_script": "Hallo en welkom bij deze korte stemdemonstratie. Ik hoop dat je geniet van hoe deze stem klinkt.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_dutch_explainer",
+      "type": "preset",
+      "name": "Dutch Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Dutch"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Dutch",
+      "sample_script": "Hallo en welkom bij deze korte stemdemonstratie. Ik hoop dat je geniet van hoe deze stem klinkt.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_turkish_narrator",
+      "type": "preset",
+      "name": "Turkish Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Turkish"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Turkish",
+      "sample_script": "Merhaba ve bu kısa ses tanıtımına hoş geldiniz. Umarım bu sesi dinlemekten keyif alırsınız.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_turkish_explainer",
+      "type": "preset",
+      "name": "Turkish Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Turkish"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Turkish",
+      "sample_script": "Merhaba ve bu kısa ses tanıtımına hoş geldiniz. Umarım bu sesi dinlemekten keyif alırsınız.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_polish_narrator",
+      "type": "preset",
+      "name": "Polish Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Polish"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Polish",
+      "sample_script": "Cześć i witaj w tej krótkiej prezentacji głosu. Mam nadzieję, że spodoba ci się, jak brzmi.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_polish_explainer",
+      "type": "preset",
+      "name": "Polish Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Polish"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Polish",
+      "sample_script": "Cześć i witaj w tej krótkiej prezentacji głosu. Mam nadzieję, że spodoba ci się, jak brzmi.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_vietnamese_narrator",
+      "type": "preset",
+      "name": "Vietnamese Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Vietnamese"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Vietnamese",
+      "sample_script": "Xin chào và chào mừng bạn đến với bản giới thiệu giọng nói ngắn này. Hy vọng bạn sẽ thích giọng nói này.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_vietnamese_explainer",
+      "type": "preset",
+      "name": "Vietnamese Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Vietnamese"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Vietnamese",
+      "sample_script": "Xin chào và chào mừng bạn đến với bản giới thiệu giọng nói ngắn này. Hy vọng bạn sẽ thích giọng nói này.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_indonesian_narrator",
+      "type": "preset",
+      "name": "Indonesian Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Indonesian"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Indonesian",
+      "sample_script": "Halo dan selamat datang di demo suara singkat ini. Semoga Anda menikmati bagaimana suara ini terdengar.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_indonesian_explainer",
+      "type": "preset",
+      "name": "Indonesian Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Indonesian"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Indonesian",
+      "sample_script": "Halo dan selamat datang di demo suara singkat ini. Semoga Anda menikmati bagaimana suara ini terdengar.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_swedish_narrator",
+      "type": "preset",
+      "name": "Swedish Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Swedish"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Swedish",
+      "sample_script": "Hej och välkommen till den här korta röstdemonstrationen. Jag hoppas att du gillar hur den låter.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_swedish_explainer",
+      "type": "preset",
+      "name": "Swedish Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Swedish"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Swedish",
+      "sample_script": "Hej och välkommen till den här korta röstdemonstrationen. Jag hoppas att du gillar hur den låter.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_greek_narrator",
+      "type": "preset",
+      "name": "Greek Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Greek"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Greek",
+      "sample_script": "Γεια σας και καλώς ήρθατε σε αυτή τη σύντομη επίδειξη φωνής. Ελπίζω να σας αρέσει πώς ακούγεται.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_greek_explainer",
+      "type": "preset",
+      "name": "Greek Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Greek"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Greek",
+      "sample_script": "Γεια σας και καλώς ήρθατε σε αυτή τη σύντομη επίδειξη φωνής. Ελπίζω να σας αρέσει πώς ακούγεται.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_ukrainian_narrator",
+      "type": "preset",
+      "name": "Ukrainian Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Ukrainian"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Ukrainian",
+      "sample_script": "Привіт і ласкаво просимо до цієї короткої демонстрації голосу. Сподіваюся, вам сподобається, як він звучить.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_ukrainian_explainer",
+      "type": "preset",
+      "name": "Ukrainian Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Ukrainian"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Ukrainian",
+      "sample_script": "Привіт і ласкаво просимо до цієї короткої демонстрації голосу. Сподіваюся, вам сподобається, як він звучить.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_czech_narrator",
+      "type": "preset",
+      "name": "Czech Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Czech"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Czech",
+      "sample_script": "Dobrý den a vítejte u této krátké ukázky hlasu. Doufám, že se vám bude líbit, jak zní.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_czech_explainer",
+      "type": "preset",
+      "name": "Czech Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Czech"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Czech",
+      "sample_script": "Dobrý den a vítejte u této krátké ukázky hlasu. Doufám, že se vám bude líbit, jak zní.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_romanian_narrator",
+      "type": "preset",
+      "name": "Romanian Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Romanian"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Romanian",
+      "sample_script": "Bună și bine ai venit la această scurtă demonstrație vocală. Sper să-ți placă cum sună.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_romanian_explainer",
+      "type": "preset",
+      "name": "Romanian Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Romanian"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Romanian",
+      "sample_script": "Bună și bine ai venit la această scurtă demonstrație vocală. Sper să-ți placă cum sună.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_danish_narrator",
+      "type": "preset",
+      "name": "Danish Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Danish"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Danish",
+      "sample_script": "Hej og velkommen til denne korte stemmedemonstration. Jeg håber, du kan lide, hvordan den lyder.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_danish_explainer",
+      "type": "preset",
+      "name": "Danish Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Danish"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Danish",
+      "sample_script": "Hej og velkommen til denne korte stemmedemonstration. Jeg håber, du kan lide, hvordan den lyder.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_finnish_narrator",
+      "type": "preset",
+      "name": "Finnish Narrator",
+      "icon": "BookOpen",
+      "use_case": "narration",
+      "facets": {
+        "gender": "female",
+        "age": "middle-aged",
+        "pitch": "low pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Finnish"
+      },
+      "instruct": "female, middle-aged, low pitch",
+      "language": "Finnish",
+      "sample_script": "Hei ja tervetuloa tähän lyhyeen ääninäytteeseen. Toivottavasti pidät siitä, miltä se kuulostaa.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
+    },
+    {
+      "id": "world_finnish_explainer",
+      "type": "preset",
+      "name": "Finnish Explainer",
+      "icon": "GraduationCap",
+      "use_case": "informative",
+      "facets": {
+        "gender": "male",
+        "age": "young adult",
+        "pitch": "moderate pitch",
+        "accent": null,
+        "whisper": false,
+        "lang": "Finnish"
+      },
+      "instruct": "male, young adult, moderate pitch",
+      "language": "Finnish",
+      "sample_script": "Hei ja tervetuloa tähän lyhyeen ääninäytteeseen. Toivottavasti pidät siitä, miltä se kuulostaa.",
+      "author": "VoiceStudio",
+      "license": "OpenRAIL-M",
+      "source": "starter",
+      "added_at": "2026-10-26"
     }
   ]
 }

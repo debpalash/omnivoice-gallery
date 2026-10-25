@@ -173,6 +173,10 @@ def _check_item(item: dict, index: int) -> list[str]:
     if not isinstance(item.get("language"), str) or not item["language"].strip():
         errs.append(f"{label}: missing `language` (the app would assume English)")
 
+    added_at = item.get("added_at")
+    if added_at is not None and not (isinstance(added_at, str) and _DATE_RE.match(added_at)):
+        errs.append(f"{label}: added_at must be an ISO date (YYYY-MM-DD), got {added_at!r}")
+
     if not isinstance(item.get("license"), str) or not item["license"].strip():
         errs.append(f"{label}: missing `license` — every item must say what users may do with it")
 

@@ -1,0 +1,39 @@
+name: Discard declined voice
+
+# The curation bot uploads a clip before the PR is reviewed, so the maintainer
+# can listen to exactly what would ship. When that PR is closed without merging,
+# the clip must not stay public — a declined voice may be one that should never
+# have been published (the consent rule).
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  discard:
+    if: >-
+      github.event.pull_request.merged == false &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'bot/voice-')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      BRANCH: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Delete the clip unless main still uses it
+        run: |
+          id="${BRANCH#bot/voice-}"
+          if ! [[ "$id" =~ ^[A-Za-z0-9_-]{1,128}$ ]]; then echo "::error::unexpected branch $BRANCH"; exit 1; fi
+          if ID="$id" python -c "import json,os,sys; sys.exit(0 if any(i.get('id')==os.environ['ID'] for i in json.load(open('manifest.json'))['items']) else 1)"; then
+            echo "$id is live on main; keeping its clip"; exit 0
+          fi
+          gh release delete-asset voices-v1 "$id.wav" --repo "$REPO" --yes || echo "no asset to delete"
+          gh api -X DELETE "repos/$REPO/git/refs/heads/$BRANCH" || true

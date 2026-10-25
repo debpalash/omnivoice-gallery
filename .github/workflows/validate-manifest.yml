@@ -9,7 +9,9 @@ on:
       - "schema/**"
       - "scripts/**"
       - "tests/**"
-      - ".github/workflows/validate-manifest.yml"
+      - "site/**"
+      - ".github/workflows/**"
+      - ".github/ISSUE_TEMPLATE/**"
   push:
     branches: [main]
     paths:
@@ -17,6 +19,9 @@ on:
       - "schema/**"
       - "scripts/**"
       - "tests/**"
+      - "site/**"
+      - ".github/workflows/**"
+      - ".github/ISSUE_TEMPLATE/**"
   # Release assets can vanish or change without touching the manifest; the
   # weekly run is what notices before a user does.
   schedule:
@@ -75,3 +80,16 @@ jobs:
           python-version: "3.11"
       - name: Verify recorded-voice audio
         run: python scripts/verify_voice_audio.py
+      # VoiceStudio's signed preview gallery downloads from releases/latest of
+      # this repo. A voices-* release that is not a prerelease becomes
+      # "latest" and silently shadows it.
+      - name: Voice releases stay prereleases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bad=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --paginate \
+            --jq '.[] | select((.tag_name | startswith("voices-")) and (.prerelease | not)) | .tag_name')
+          if [ -n "$bad" ]; then
+            echo "::error::mark these as prereleases so they never become latest: $bad"; exit 1
+          fi
+          echo "voice releases are all prereleases"

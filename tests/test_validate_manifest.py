@@ -145,6 +145,13 @@ def test_add_voice_creates_pack_and_replaces_in_place():
     pack = next(p for p in manifest["packs"] if p["id"] == "community-voices")
     assert pack["item_ids"] == [VOICE["id"]]
     assert manifest["updated_at"] == "2026-10-27"
+    assert manifest["items"][-1]["added_at"] == "2026-10-26"  # re-curation keeps its date
+
+
+def test_bad_added_at_is_rejected():
+    v = copy.deepcopy(VOICE)
+    v["added_at"] = "last week"
+    assert any("added_at" in e for e in _check_item(v, 0))
 
 
 def test_add_voice_output_validates():
