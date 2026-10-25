@@ -9,7 +9,9 @@ on:
       - "schema/**"
       - "scripts/**"
       - "tests/**"
-      - ".github/workflows/validate-manifest.yml"
+      - "site/**"
+      - ".github/workflows/**"
+      - ".github/ISSUE_TEMPLATE/**"
   push:
     branches: [main]
     paths:
@@ -17,6 +19,9 @@ on:
       - "schema/**"
       - "scripts/**"
       - "tests/**"
+      - "site/**"
+      - ".github/workflows/**"
+      - ".github/ISSUE_TEMPLATE/**"
   # Release assets can vanish or change without touching the manifest; the
   # weekly run is what notices before a user does.
   schedule:
